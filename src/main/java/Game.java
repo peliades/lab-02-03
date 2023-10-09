@@ -6,26 +6,31 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Game {
+    private Screen screen;
+
     public static void game(String[] args) throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
                 .setInitialTerminalSize(terminalSize);
         Terminal terminal = terminalFactory.createTerminal();
+        Screen screen = new TerminalScreen(terminal);
+        screen.setCursorPosition(null); // we don't need a cursor
+        screen.startScreen(); // screens must be started
+        screen.doResizeIfNecessary(); // resize screen if
+
     }
 
-    private draw() {
-
-    }
-
-    public run () {
+    private void draw() throws IOException {
         screen.clear();
         screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
         screen.refresh();
     }
-}
 
-public class screen {
+    public void run() throws IOException {
+        draw();
+    }
 
 }
